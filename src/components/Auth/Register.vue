@@ -1,9 +1,12 @@
 <template>
   <div class="register-container d-flex align-items-center justify-content-center h-5">
-
       <div class="form-group w-50" >
         <h3>Signup</h3>
-
+        <div class="group">
+          <label>Image</label>
+        <input type="file" @change="previewFiles" >
+          <span>{{errors.first('image')}}</span>
+        </div>
           <div class="group">
             <label>Name</label>
             <input
@@ -66,16 +69,31 @@ export default {
     return{
       validations: Validations,
       user_data: {
-
-      }
+        image:null,
+          id: null,
+          name: null,
+          surname: null,
+          email: null,
+          age: null
+      },
+      image:null,
     }
 
   },
   methods: {
+    previewFiles(event) {
+      this.image = event.target.files;
+      // [0].name
+      console.log(this.image);
+    },
     signup(){
       this.$validator.validateAll()
+
         .then(res =>{
           if(res){
+           this.user_data.image = this.image;
+            // this.newUser.image = this.user_data.image
+            console.log(this.user_data);
             this.axios.post("http://127.0.0.1:8000/api/auth/signup", this.user_data)
             .then(res =>{
               this.$router.push({name: 'Login'});

@@ -1,4 +1,5 @@
 export default {
+  image:'required',
   email:'required',
   password:'required',
   name:'required',

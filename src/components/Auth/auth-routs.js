@@ -5,12 +5,14 @@ export default [
     {
       path: '/signup',
       name: 'Register',
-      component: Register
+      component: Register,
+      meta:{ middleware: ['guest']}
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta:{ middleware: ['guest']}
     },
 ]
 

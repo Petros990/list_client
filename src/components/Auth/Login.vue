@@ -14,7 +14,9 @@
         class="form-control mb-2" v-model="user_data.password" type="password" placeholder="password">
       <span>{{errors.first('password')}}</span>
       <span v-if="a == 1 "> password is incorrect </span>
-      <button @click="Login" class="btn btn-success">Login</button>
+      <button @click="Login" class="btn btn-success">
+<!--        <router-link :to="{name: 'User'}"></router-link>-->
+        Login</button>
     </div>
 
   </div>
@@ -43,7 +45,9 @@ export default {
           AuthService.login(this.user_data)
           .then(res => {
             this.$store.commit('setUser', res.user);
-            this.$store.commit('setToke', res.access_token);
+              localStorage.setItem('token',res.access_token);
+            // this.$store.commit('setToken', res.access_token);
+            this.$router.push({name: 'UserProfile'});
           })
           // this.axios.post("http://127.0.0.1:8000/api/auth/login", this.user_data)
           //   .then(res =>{
